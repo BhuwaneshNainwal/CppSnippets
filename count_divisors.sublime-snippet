@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+
+/*	TC - O(N * lnln N)
+	SC - O(N)	
+*/
+
+vector<char> is_prime(N + 1, false);
+vector<int> primes;
+void sieve()
+{	
+	is_prime[2] = 1;
+	primes.pb(2);
+	for(int i = 3 ; i <= N ; i += 2)
+		is_prime[i] = true;
+	for(int i = 3 ; i <= N ; i += 2)
+	{
+		if(is_prime[i])
+		{
+			primes.pb(i);
+			for(int j = i * i ; j <= N ; j += i)
+					is_prime[j] = false;
+		}
+	}
+}
+
+int count_divisors(int n)
+{
+	int ans = 1;
+	for(int i = 0 ; i < primes.size() ; i++)
+	{
+		if(primes[i] * primes[i] > n)
+			break;
+		if(n % primes[i] == 0)
+		{
+			int cnt = 1;
+			while(n % primes[i] == 0)
+			{	
+				//Do something
+				cnt++;
+				n = n / primes[i];
+			}
+			ans = ans * cnt;
+		}
+		
+	}
+	if(n > 1)
+	{
+		//Do something
+		ans = ans * 2;
+	}
+	return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>count divisors</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

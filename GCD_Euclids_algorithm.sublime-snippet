@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+/*  TC - O(log (min(a , b)))
+ 	SC - O(1)
+*/
+
+int gcd(int a , int b)
+{
+	while(b)
+	{
+		swap(a , b);
+		b = b % a;
+	}
+	return a;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gcd euclid's algorithm</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

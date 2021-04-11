@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+/* Binary exponentiation , O(log n) time and O(1) space */
+int binpow(int a, int n)
+{
+
+    int ans = 1;
+
+    while(n)
+    {
+        if(n % 2 != 0)
+            ans = ans * a;
+
+        a = a * a;
+        n = n / 2;
+    }
+
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>binary_exponentiation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

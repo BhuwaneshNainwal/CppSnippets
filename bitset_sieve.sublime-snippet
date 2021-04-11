@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[
+/* 	Apply when N <= 1e7
+	TC - O(n * ln(ln n))
+	SC - O(n)
+*/
+bitset<10000005> b;
+vector<int> primes; 
+
+void bitset_sieve()
+{	
+	b[2] = 1;
+	primes.pb(2);
+	for(int i = 3 ; i <= N ; i += 2)
+		b[i] = 1;
+	for(int i = 3 ; i <= N ; i += 2)
+	{
+		if(b[i])
+		{
+			primes.pb(i);
+			for(int j = i * i ; j <= N ; j += i)
+				b[j] = 0;
+		}
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bitset sieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

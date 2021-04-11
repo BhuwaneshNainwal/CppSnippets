@@ -1,0 +1,75 @@
+<snippet>
+	<content><![CDATA[
+//Multiplication of square matrix
+vcvci multiply(vcvci a , vcvci b)
+{
+	vcvci ans(3 , vector<int> (3));
+
+	for(int i = 1 ; i <= 2 ; i++)
+	{
+
+		for(int j = 1 ; j <=2 ; j++)
+		{
+			ans[i][j] = 0;
+			for(int k = 1 ; k <=2 ; k++)
+			{
+				ans[i][j] = ((ans[i][j] % mod)+ ((a[i][k] % mod) * (b[k][j] % mod)) % mod) % mod; 
+			}
+		}
+	}
+	return ans;
+}
+
+//Binary exponentiation function
+vcvci pow(int n)
+{
+	//Transformation matrix
+	vcvci T(3 , vector<int> (3));
+	T[1][1] = 0;
+	T[1][2] = 1;
+	T[2][1] = 1;
+	T[2][2] = 1;
+
+	//Initially ans is identity matrix since, AI = IA = A
+	vcvci ans (3 , vector<int> (3));
+	ans[1][1] = 1;
+	ans[1][2] = 0;
+	ans[2][1] = 0;
+	ans[2][2] = 1;
+
+	while(n)
+	{
+		if(n & 1 == 1)
+			ans = multiply(ans , T);
+		T = multiply(T , T);
+		n = n >> 1;
+	}
+	return ans;
+}
+
+int solve(int n)
+{	
+	//base relation vector
+	vcvci F1(3 , vector<int> (2));
+	
+	F1[1][1] = 1;
+	F1[2][1] = 1;
+	
+	//pow(T , n - 1)
+	vcvci ans = pow(n - 1); 
+
+	int final_answer = 0;
+
+	//pow(T , n - 1) * F1
+	for(int i = 1 ; i <= 2 ; i++)
+	{
+		final_answer = ((final_answer % mod) + ((ans[1][i] % mod) * (F1[i][1] % mod)) % mod) % mod;
+	}
+	return final_answer;
+}	
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>matrix_exponentiation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

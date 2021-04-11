@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+int bit[100000];
+int arr[100000];
+void update(int i , int inc , int n)
+{
+	while(i <= n)
+	{
+		bit[i] += inc;
+		i += (i & (-i));
+	}
+}
+
+int query(int i)
+{
+	int ans = 0;
+	while(i > 0)
+	{
+		ans += bit[i];
+		i -= (i & (-i));
+	}
+	return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

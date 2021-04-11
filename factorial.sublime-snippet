@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+/* Factorial of a number */
+int fac(int n)
+{
+    int ans = 1;
+    for(int i = 1 ; i <= n ; i++)
+        ans *= i;
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>factorial</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,103 @@
+<snippet>
+	<content><![CDATA[
+/*
+
+	Builiding segment tree for minimum range query.
+
+*/
+
+int lazy[400002] = {0};
+void build(int *arr , int *seg , int ind, int s , int e)
+{
+	if(s == e)
+	{
+		seg[ind] = arr[s];
+		return;
+	}
+
+	int mid = (s + e) / 2;
+	build(arr , seg , 2 * ind , s , mid);
+	build(arr , seg , 2 * ind + 1 , mid + 1 , e);
+	seg[ind] = min(seg[2 * ind] , seg[2 * ind + 1]);
+}
+
+/*
+	Range update
+	TC - O(n) in worst - case
+*/
+
+void range_update(int *seg , int ind , int l , int r , int incre , int ss , int se)
+{
+	if(lazy[ind] != 0)
+	{
+		seg[ind] += lazy[ind];
+		if(ss != se)
+		{
+			lazy[2 * ind] += lazy[ind];
+			lazy[2 * ind + 1] += lazy[ind];
+		}
+		lazy[ind] = 0;
+
+
+	}
+
+	//no overlap
+	if(r < ss || l > se)
+		return;
+	
+	//Complete overlap
+	if(ss >= l && se <= r)
+	{
+		seg[ind] += incre;
+		if(ss != se)
+		{
+			lazy[2 * ind] += incre;
+			lazy[2 * ind + 1] += incre;
+		}
+		return;
+	}
+
+	//Otherwise
+	int mid = (ss + se) / 2;
+	range_update(seg , 2 * ind , l , r , incre , ss , mid);
+	range_update(seg , 2 * ind + 1 , l , r , incre , mid + 1 , se);
+	seg[ind] = min(seg[2 * ind] , seg[2 * ind + 1]);
+
+	return;
+}
+
+int range_query_lazy(int *seg , int ind , int qs , int qe , int ss , int se)
+{
+	if(lazy[ind] != 0)
+	{
+		seg[ind] += lazy[ind];
+		if(ss != se)
+		{
+			lazy[2 * ind] += lazy[ind];
+			lazy[2 * ind + 1] += lazy[ind];
+		}
+		lazy[ind] = 0;
+	}
+
+	//No overlap
+	if(ss > qe || qs > se)
+		return LLONG_MAX;
+
+	//Complete overlap
+	if(ss >= qs && se <= qe)
+		return seg[ind];
+
+	//Partial overlap
+	int mid  = (ss + se) / 2;
+	int left = range_query_lazy(seg , 2 * ind , qs , qe , ss , mid);
+	int right = range_query_lazy(seg , 2 * ind + 1 , qs , qe , mid + 1 , se);
+
+	return min(left , right);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment tree lazy</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,61 @@
+<snippet>
+	<content><![CDATA[
+ll seg[4 * N] = {0};
+ll arr[N] = {0};
+
+void build(ll ind , ll l , ll r)
+{
+	if(l == r)
+	{
+		seg[ind] = arr[l];
+		return;
+	}
+
+	ll mid = (l + r) / 2;
+	
+	build(2 * ind + 1, l , mid);
+	build(2 * ind + 2 , mid + 1 , r);
+
+	seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+}
+
+//Modifying a value at a index i.e, set a[p] = val
+
+void modify(ll ind , ll p , ll val , ll l , ll r)
+{
+
+	seg[ind] += (val - arr[p]);
+
+	if(l == r)
+	{
+		arr[p] = val;
+		return;
+	} 
+	ll mid = (l + r) / 2;
+
+	if(p <= mid)
+		modify(2 * ind + 1 , p , val , l , mid);
+	else
+		modify(2 * ind + 2 , p , val , mid + 1 , r);
+}
+
+//sum query from x to y:
+
+ll query(ll ind , ll x , ll y , ll l , ll r)
+{
+	if(x > r || y < l)
+		return 0;
+	if(l >= x && r <= y)
+		return seg[ind];
+	
+	ll mid = (l + r) / 2;
+
+	return query(2 * ind + 1 , x , y , l , mid) + query(2 * ind + 2 , x , y , mid + 1 , r);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>classic segment tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

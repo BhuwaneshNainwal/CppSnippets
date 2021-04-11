@@ -1,0 +1,71 @@
+<snippet>
+	<content><![CDATA[
+/*
+	Builiding segment tree for minimum range query.
+	TC - O(n)
+*/
+
+void build(int *arr , int *seg , int ind, int s , int e)
+{
+	if(s == e)
+	{
+		seg[ind] = arr[s];
+		return;
+	}
+
+	int mid = (s + e) / 2;
+	build(arr , seg , 2 * ind , s , mid);
+	build(arr , seg , 2 * ind + 1 , mid + 1 , e);
+	seg[ind] = min(seg[2 * ind] , seg[2 * ind + 1]);
+}
+
+/*
+	Point update
+	TC - O(log n) 
+*/
+
+void point_update(int *seg , int ind , int i , int incre , int ss , int se)
+{
+	if(i < ss || i > se)
+		return;
+	
+	if(ss == se)
+	{
+		seg[ind] += incre;
+		return;
+	}
+
+	//Otherwise
+	int mid = (ss + se) / 2;
+	point_update(seg , 2 * ind , i , incre , ss , mid);
+	point_update(seg , 2 * ind + 1 , i , incre , mid + 1 , se);
+	seg[ind] = min(seg[2 * ind] , seg[2 * ind + 1]);
+}
+
+/*
+	O(log n)
+*/
+int range_query_point(int *seg , int ind , int qs , int qe , int ss , int se)
+{
+	//Completely overlap
+	if(ss >= qs && se <= qe)
+		return seg[ind];
+
+	//No overlap at all
+	if(qe < ss ||qs > se)
+		return LLONG_MAX;
+
+	//Partial overlap
+	int mid = (ss + se) / 2;
+	int left = range_query_point(seg , 2 * ind , qs , qe , ss , mid);
+	int right = range_query_point(seg , 2 * ind + 1 , qs , qe , mid + 1 , se);
+
+	return min(left , right);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

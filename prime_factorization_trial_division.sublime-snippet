@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+/*
+	TC - O(sqrt(n))
+	SC - O(1)
+*/
+void prime_factorization(int n)
+{
+    while(n % 2 == 0)
+    {
+		//Do something
+
+        n /= 2;
+    }
+
+    for (int i = 3; i <= sqrt(n); i = i + 2)
+    {
+        while (n % i == 0)
+        {
+        	//Do something
+         
+            n = n / i;
+        }
+    }
+    
+    if(n > 2)
+    {
+    	//Do something
+   
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prime factorization trial division</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

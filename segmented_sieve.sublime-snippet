@@ -1,0 +1,61 @@
+<snippet>
+	<content><![CDATA[
+
+/*	TC - O(N lnln N)
+	SC - O(N)	
+*/
+vector<char> is_prime(N + 1, false);
+vector<int> primes;
+
+void sieve()
+{
+    is_prime[2] = true;
+    primes.pb(2);
+    for(int i = 3 ; i <= N ; i += 2)
+        is_prime[i] = true;
+    for(int i = 3 ; i <= N ; i += 2)
+    {
+        if(is_prime[i])
+        {
+            primes.pb(i);
+            for(int j = i * i ; j <= N ; j += i)
+                is_prime[j] = false;
+        }
+    }
+}
+
+void segmented_sieve(int m, int n)
+{
+	//Mapping m......n to 0....n - m 
+    vector<char> segment(n - m + 1, true);
+
+    for(auto x : primes)
+    {
+    	//If it exceeds the range
+        if(x * x > n)
+            break;
+
+        int start = (m / x) * x;
+
+        //For primes in the range of m to n
+        if(x >= m && x <= n)
+            start = x * 2;
+
+        for(int i = start ; i <= n ; i += x)
+        {
+            if(i - m >= 0)
+                segment[i - m] = false;
+        }
+    }
+    for(int i = m ; i <= n ; i++)
+    {
+        if((i - m) >= 0 && segment[i - m] == true && i != 1)
+            cout << i << "\n";
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segmented sieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

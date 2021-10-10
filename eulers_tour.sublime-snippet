@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+
+int timer;
+int tin[N];
+int tout[N];
+vector<int> gr[N];
+
+void eulerTour(int cur , int par)
+{
+	tin[cur] = timer++;
+	for(auto x : gr[cur])
+	{
+		if(x != par)
+		{
+			eulerTour(x , cur);
+		}
+	}
+	tout[cur] = timer++;
+	return;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>euler's tour </tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

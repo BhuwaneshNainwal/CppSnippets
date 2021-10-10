@@ -9,9 +9,12 @@
 		"1337 Color Scheme",
 		"CoolFormat",
 		"Dracula Color Scheme",
+		"GitHub Flavored Markdown Preview",
 		"Package Control",
 		"SublimeLinter Inline Errors",
 		"Terminus",
-		"Theme - Gravity"
-	]
+		"Theme - Gravity",
+		"Theme - One Dark",
+		"Theme - Soda SolarizedDark",
+	],
 }

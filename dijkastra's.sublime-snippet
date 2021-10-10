@@ -1,0 +1,76 @@
+<snippet>
+	<content><![CDATA[
+
+template<typename T>
+class Graph
+{
+	unordered_map<T , list<pair<T , int>>> m;
+
+public:
+
+	void add_edge(T u , T  v , int dist , bool bidir = false)
+	{
+		m[u].pb({v , dist});
+		if(bidir)
+			m[v].pb({u , dist});
+	}
+
+	void print_ad()
+	{
+		for(auto j : m)
+		{
+			cout << j.first <<" -> ";
+
+			for(auto l : j.second)
+				cout << "( " << l.first << " , " << l.second << ')' << "\n";
+		}
+
+	}
+
+	void dijkastra(T src)
+	{
+
+		unordered_map<T , int> dist;
+		for(auto j : m)
+		{
+			dist[j.first] = INT_MAX;
+			for(auto k : m[j.first])
+				dist[k.first] = INT_MAX;
+		}
+		
+		set<pair<int , T>> s;
+
+		dist[src] = 0;
+		s.insert({0 , src});
+
+		while(!s.empty())
+		{
+			auto p = *(s.begin());
+			T node = p.second;
+
+			int node_dist = p.first;
+			s.erase(s.begin());
+
+			for(auto childpair : m[node])
+			{
+				if((node_dist + childpair.second) < dist[childpair.first])
+				{
+					T dest = childpair.first;
+					auto f = s.find({dist[dest] , dest});
+					
+					if(f != s.end())
+						s.erase(f);
+
+					dist[dest] = node_dist + childpair.second;
+					s.insert({dist[dest] , dest});
+				}
+			}
+		}
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dijkstra's</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

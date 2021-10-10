@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+template<typename T>
+class Graph
+{
+	unordered_map<T , list<T>> l;
+
+public:
+	void add_edge(T x , T y)
+	{
+		l[x].pb(y);
+		l[y].pb(x);
+	}
+
+	void bfs(T src)
+	{
+		unordered_map<T , bool> visited;
+		queue<T> q;
+		q.push(src);
+		visited[src] = true;
+
+		while(!q.empty())
+		{
+			T node = q.front();
+			q.pop();
+
+			for(T nbr : l[node])
+			{
+				if(!visited[nbr])
+				{
+					q.push(nbr);
+					visited[nbr] = true;
+				}
+			}
+		}
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

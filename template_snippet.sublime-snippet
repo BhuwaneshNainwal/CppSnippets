@@ -55,6 +55,7 @@ pbds;
 #define null                NULL
 #define ff                    first
 #define ss                  second
+#define sz(x)               ((int)(x).size())
 #define stb(x)                __builtin_popcount(x)
 #define stbl(x)                __builtin_popcountll(x)
 #define lzr(x)                __builtin_clz(x)
@@ -69,12 +70,14 @@ pbds;
 
 using namespace std;
 
-const int mod = 1e9 + 7;
+const int M = 1e9 + 7;
+// const int M = 998244353;
 const int INF = 1e9;
 const int LINF = 1e18;
 const int N = 1e4;
 const int chkprc = 1e-9;  // Check for precision error in double
-
+int dx[] = {1,0,-1,0};
+int dy[] = {0,1,0,-1};
 
 struct PHash{
   size_t operator()(const pair<int,int>&x)const{
@@ -87,6 +90,12 @@ struct THash{
         return get<0>(x) ^ std::get<1>(x) ^ std::get<2>(x);
     }
 };
+
+
+template<class T1, class T2> void add( T1 &x, T2 y, int m=M ){ x = (x % m + y % m) % m;}
+template<class T1, class T2> void sub( T1 &x, T2 y, int m=M ){ x = (x % m - y % m + m) % m;}
+int mod( int n, int m=M ){ n%=m;if(n<0)n+=m;return n; }
+
 
 template<class T>void _print(T x){cerr<<x;}
 

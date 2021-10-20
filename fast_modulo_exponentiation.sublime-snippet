@@ -3,7 +3,7 @@
 /*	TC - O(log n)
 	SC - O(1)
 */
-int fast_modulo_exponentiation(int x , int n , int m)
+int fast_modulo_exponentiation(int x , int n , int m = M)
 {
 	int ans = 1;
 	while(n)

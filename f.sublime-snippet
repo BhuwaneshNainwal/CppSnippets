@@ -1,0 +1,55 @@
+<snippet>
+	<content><![CDATA[
+Hello, ${1:this} is a ${2:snippet}.
+]]></content>
+
+template<typename T>
+class Graph
+{
+	unordered_map<T , list<T>> m;
+
+public:
+
+	void addEdge(T u , T  v, bool bidir = false)
+	{
+		m[u].pb(v);
+		if(bidir)
+			m[v].pb(u);
+	}
+	void dfsHelper(T src, unordered_map<T, bool> &visited, list<T> &ordering)
+	{
+
+		debug(src)
+		visited[src] = true;
+
+		for(T nbr: m[src])
+		{
+			if(!visited[nbr])
+				dfsHelper(nbr, visited, ordering);
+		}
+
+		ordering.push_front(src);
+	}
+
+	void topologicalSorting()
+	{
+			
+		unordered_map<T, bool> visited;
+
+		for(auto x: m)
+			visited[x.first] = false;
+
+		list<T> ordering;
+		for(auto p : m)
+		{
+			T node = p.first;
+			if(!visited[node])
+				dfsHelper(node, visited, ordering);
+		}
+	
+		for(auto x: ordering)
+			cout << x << ' ';
+	}
+
+};
+</snippet>

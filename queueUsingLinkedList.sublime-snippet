@@ -1,0 +1,80 @@
+<snippet>
+	<content><![CDATA[
+template<typename T>
+class List
+{
+
+public:
+	T data;
+	List *next;
+
+	List(T value)
+	{
+		this -> data = value;
+		this -> next = NULL;
+	}
+};
+
+
+template<typename T>
+class Queue
+{
+
+public:
+
+	List<T> *right = NULL;
+	List<T> *left = NULL;
+
+	void push(T value)
+	{
+		List<T> *temp = new List<T>(value);
+		if(!left)
+		{
+			left = right = temp;
+			return;
+		}
+
+		right -> next = temp;
+		right = temp;
+	}
+
+
+	void pop()
+	{
+		if(!left)
+		{
+			throw out_of_range("Queue is empty!");
+			return;
+		}
+
+		List<T> *temp = left;
+		left = left -> next;
+		delete temp;
+	}
+
+	T front()
+	{
+		if(!left)
+		{
+			cout << "queue is empty!";
+			throw out_of_range("Queue is empty!");
+		}
+
+		return left -> data;
+	}
+
+	bool empty()
+	{
+		if(!left)
+			return true;
+
+		return false;
+	}
+
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Queue using linked list</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
